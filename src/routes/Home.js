@@ -5,8 +5,7 @@ import Nweet from "components/Nweet";
 const Home = ({userObj}) => {
   console.log(userObj);
     const [nweet, setNweet] = useState("");
-    const [nweets, setNweets] = useState([]);
-    
+    const [nweets, setNweets] = useState([]);    
     useEffect( () => {     
       console.log("use Effect");
       // onSanpshot: nweets 콜렉션에 무슨 일이 생길때마다 업데이트 되는 콜백 함수(리얼타임)
@@ -31,6 +30,16 @@ const Home = ({userObj}) => {
         const {target:{value}} = event; 
         setNweet(value);
     };
+    const onFileChange = (event) => {
+      const {target:{files}} = event;
+      const theFile = files[0];      
+      const reader = new FileReader()
+      reader.onloadend = (finishedEvent) => {
+        console.log(finishedEvent);
+      }
+      reader.readAsDataURL(theFile);
+      console.log(theFile);
+    }
     return (
         <div>
           <form onSubmit={onSubmit}>
@@ -41,6 +50,7 @@ const Home = ({userObj}) => {
               placeholder="What's on your mind?"
               maxLength={120}
             />
+            <input type="file" accept="image/*" onChange={onFileChange} />
             <input type="submit" value="Nweet" />
           </form>
           <div>
