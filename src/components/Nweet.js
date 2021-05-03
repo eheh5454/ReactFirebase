@@ -1,4 +1,4 @@
-import { dbService } from "myBase";
+import { dbService, storageService } from "myBase";
 import React, { useEffect, useState } from "react";
 
 // 오너일 경우에만 표시 
@@ -12,6 +12,7 @@ const Nweet = ({nweetObj, isOwner}) => {
         if (ok) {
             // delete nweet 
             await dbService.doc(`nweets/${nweetObj.id}`).delete();
+            await storageService.refFromURL(nweetObj.attachmentUrl).delete();
         }
     }
     // 편집 상태 변경 
@@ -51,7 +52,8 @@ const Nweet = ({nweetObj, isOwner}) => {
                 ) : (
                 // 삭제, 편집 선택 
                 <>
-                    <h4>{nweetObj.text}</h4>        
+                    <h4>{nweetObj.text}</h4>   
+                    {nweetObj.attachmentUrl && (<img src={nweetObj.attachmentUrl} width="50px" height="50px" />)}
                     {isOwner && (
                         <>
                             <button onClick={onDeleteClick}>Delete Nweet</button>
