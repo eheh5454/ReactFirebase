@@ -9,18 +9,25 @@ function App() {
   // useEffect - componentDid, componentWill 시리즈가 합쳐진 것 
   useEffect(()=>{
     authService.onAuthStateChanged((user)=>{
-      if(user) {
-        setUserObject(user);
-      }
+        if(user) {
+          setUserObject({
+            displayName: user.displayName,
+            uid: user.uid,
+            updateProfile: (args) => user.updateProfile(args),
+          });             
+        } 
       setInit(true);
     });
     }, []);
-    
+    const refreshUser = () => {
+      const user = authService.currentUser;      
+      setUserObject(Object.assign({},user));     
+    };
     // footer를 쓰면 라우트 이외에 추가로 더 넣을 수 있음
     // user Login을 Boolean함수로 체크함 
     return (
       <>
-      {init? <AppRouter isLoggedIn={Boolean(userObject)} userObj={userObject} /> : "Initializing...."}
+      {init? <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObject)} userObj={userObject} /> : "Initializing...."}
       </>
     );
 }

@@ -5,12 +5,12 @@ import Home from "routes/Home";
 import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
 
-const AppRouter = ({isLoggedIn, userObj}) => { 
+const AppRouter = ({refreshUser, isLoggedIn, userObj}) => { 
     // Switch는 첫번쨰 매치되는 path를 렌더링함
     // Redirect: "/" 외의 라우트로 가게되면 "/" 라우트로 돌아오라는 뜻
 return (
     <Router>       
-        {isLoggedIn && <Navigation />}  
+        {isLoggedIn && <Navigation userObj={userObj} />}  
         <Switch>
             {isLoggedIn? (        
             <>       
@@ -18,7 +18,7 @@ return (
                 <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-                <Profile />
+                <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>        
             <Redirect from="*" to="/" />
             </>

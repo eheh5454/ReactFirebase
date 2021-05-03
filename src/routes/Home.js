@@ -7,7 +7,7 @@ const Home = ({userObj}) => {
   console.log(userObj);
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);    
-    const [attachment,setAttachment] = useState();
+    const [attachment,setAttachment] = useState("");
     useEffect( () => {     
       console.log("use Effect");
       // onSanpshot: nweets 콜렉션에 무슨 일이 생길때마다 업데이트 되는 콜백 함수(리얼타임)
