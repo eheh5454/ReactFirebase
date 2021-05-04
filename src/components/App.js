@@ -15,8 +15,10 @@ function App() {
             uid: user.uid,
             updateProfile: (args) => user.updateProfile(args),
           });             
-        } 
-      setInit(true);
+        } else {
+          setUserObject(null);
+        }
+      setInit(true);      
     });
     }, []);
     const refreshUser = () => {

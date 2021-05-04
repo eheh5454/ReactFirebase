@@ -1,6 +1,6 @@
-import { authService, dbService } from "myBase";
+import { authService } from "myBase";
 import { useHistory } from "react-router-dom";
-import React, { useEffect,useState } from "react";
+import React, { useState } from "react";
 
 export default ({refreshUser, userObj}) => {
     const history = useHistory();    
@@ -13,20 +13,14 @@ export default ({refreshUser, userObj}) => {
     }
     const onLogOutClick = () => {
         authService.signOut();      
-        history.push("/");
+        history.push("/");        
     }
-    const getMyNweets = async() => {
-        const nweets = await dbService.collection("nweets").where("creatorId", "==", userObj.uid).orderBy("createdAt").get();
-        console.log(nweets.docs.map((doc) => doc.data()));
-    }
-    useEffect(() => {
-        getMyNweets();
-    }, []);
-    const onSubmit = async(event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();        
         if (userObj.displayName !== newDisplayName)
         { 
             await userObj.updateProfile({displayName: newDisplayName,});
+            console.log("Update");
         }
         refreshUser();
     };
