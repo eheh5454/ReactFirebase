@@ -12,8 +12,17 @@ return (
     <Router>       
         {isLoggedIn && <Navigation userObj={userObj} />}  
         <Switch>
-            {isLoggedIn? (        
-            <>       
+            {isLoggedIn? (                            
+            <div
+              style={{
+              maxWidth: 890,
+              width: "100%",
+              margin: "0 auto",
+              marginTop: 80,
+              display: "flex",
+              justifyContent: "center",
+              }}
+            >
             <Route exact path="/">
                 <Home userObj={userObj} />
             </Route>
@@ -21,7 +30,7 @@ return (
                 <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>        
             <Redirect from="*" to="/" />
-            </>
+            </div>            
             ) : (
             <>
             <Route exact path="/">

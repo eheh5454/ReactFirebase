@@ -1,6 +1,6 @@
 import AuthForm from "components/AuthForm";
 import { authService, firebaseInstance } from "myBase";
-import React, {useState} from "react";
+import React from "react";
 
 const Auth = () => {   
 

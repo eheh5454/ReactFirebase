@@ -33,18 +33,18 @@ const Nweet = ({nweetObj, isOwner}) => {
 
     // editing 상태에 따라 편집 화면 <-> 편집, 삭제 선택 전환 
     return (
-        <div>
+        <div className="nweet">
             {
                 editing ? (
                 // 편집 상태 
                 <>
                     {isOwner && (
                         <>
-                        <form onSubmit={onSubmit}>
+                        <form onSubmit={onSubmit} className="container nweetEdit">
                         <input type="text" placeholder="Edit your Nweet" value={newNweet} required onChange={onChange} />
-                        <input type="submit" value="Update Nweet" />
+                        <input type="submit" value="Update Nweet" className="formBtn" />
                         </form>
-                        <button onClick = {toggleEditing}>Cancel</button>
+                        <span onClick={toggleEditing} className="formBtn cancelBtn">Cancel</span>
                         </>
                     )}
                     
@@ -53,11 +53,13 @@ const Nweet = ({nweetObj, isOwner}) => {
                 // 삭제, 편집 선택 
                 <>
                     <h4>{nweetObj.text}</h4>   
-                    {nweetObj.attachmentUrl && (<img src={nweetObj.attachmentUrl} width="50px" height="50px" />)}
+                    {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} />}
                     {isOwner && (
                         <>
+                            <div className="nweet__actions">
                             <button onClick={onDeleteClick}>Delete Nweet</button>
                             <button onClick={toggleEditing}>Edit Nweet</button>
+                            </div>
                         </> 
                     )}
                 </>
